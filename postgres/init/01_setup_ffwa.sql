@@ -1,6 +1,17 @@
 -- Fly Fishing SQL
 
 -- Tables
+CREATE TABLE IF NOT EXISTS anglers (
+    uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+    username VARCHAR(64) NOT NULL,
+    password VARCHAR(64) NOT NULL,
+    pw_expire_timestamp TIMESTAMP NOT NULL DEFAULT now() + make_interval(0,6),
+    email VARCHAR(64) NOT NULL,
+    PRIMARY KEY (uuid),
+    UNIQUE (username),
+    UNIQUE (email)
+);
+
 CREATE TABLE IF NOT EXISTS outings (
     id SERIAL NOT NULL,
     outing VARCHAR(64) DEFAULT CONCAT('Outing', ' ', CURRVAL('outings_id_seq')) NOT NULL, 
